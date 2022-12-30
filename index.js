@@ -5,17 +5,12 @@ import { roundTo, isNumber } from "./functions.js";
 const calculadoraInputs = Array.from(document.querySelectorAll(".calculadora input"));
 const NUM_DECIMALES = 2;
 const esTeclaPermitida = (tecla) => /^([0-9.])$/.test(tecla) || tecla==='Backspace' || tecla==='Delete';
-const redondearValorInputs = (idExcepcion) => {
-  calculadoraInputs.forEach((input) => {
-    if (idExcepcion != input.id) {
-      input.value = roundTo(Number(v[input.id]), NUM_DECIMALES);
-    }
-  });
-};
 const calcularImporte = (id) => {
 
+  // objeto con los valores numéricos de los inputs
   const v = calculadoraInputs.reduce((a, v) => ({ ...a, [v.id]: Number(v.value) }), {});
 
+  // dependiendo del input que se está modificando realiza los cálculos en el resto de input
   switch (id) {
     case "baseImponible":
       v.importeIva = (v.baseImponible * v.iva) / 100;
@@ -35,6 +30,7 @@ const calcularImporte = (id) => {
       break;
   }
 
+  // copia los valores calculados en el resto de inputs
   calculadoraInputs.forEach((input) => {
     if (id != input.id) {
       input.value = roundTo(Number(v[input.id]), NUM_DECIMALES);
