@@ -2,51 +2,44 @@ import { roundTo, isNumber } from "./functions.js";
 
 // declara constantes globales
 
-const baseImponibleInput = document.getElementById("baseImponible");
-const ivaInput = document.getElementById("iva");
-const importeIvaInput = document.getElementById("importeIva");
-const importeTotalInput = document.getElementById("importeTotal");
-const calculadoraInputs = document.querySelectorAll(".calculadora input");
+const calculadoraInputs = Array.from(document.querySelectorAll(".calculadora input"));
 const NUM_DECIMALES = 2;
 const esTeclaPermitida = (tecla) => /^([0-9.])$/.test(tecla) || tecla==='Backspace' || tecla==='Delete';
+const redondearValorInputs = (idExcepcion) => {
+  calculadoraInputs.forEach((input) => {
+    if (idExcepcion != input.id) {
+      input.value = roundTo(Number(v[input.id]), NUM_DECIMALES);
+    }
+  });
+};
 const calcularImporte = (id) => {
-  let baseImponible = Number(baseImponibleInput.value);
-  let iva = Number(ivaInput.value);
-  let importeIva = Number(importeIvaInput.value);
-  let importeTotal = Number(importeTotalInput.value);
+
+  const v = calculadoraInputs.reduce((a, v) => ({ ...a, [v.id]: Number(v.value) }), {});
 
   switch (id) {
     case "baseImponible":
-      importeIva = (baseImponible * iva) / 100;
-      importeTotal = baseImponible + importeIva;
-      importeIvaInput.value = roundTo(importeIva, NUM_DECIMALES);
-      importeTotalInput.value = roundTo(importeTotal, NUM_DECIMALES);
+      v.importeIva = (v.baseImponible * v.iva) / 100;
+      v.importeTotal = v.baseImponible + v.importeIva;
       break;
     case "importeIva":
-      baseImponible = importeIva / (iva / 100);
-      importeTotal = baseImponible + importeIva;
-      baseImponibleInput.value = roundTo(baseImponible, NUM_DECIMALES);
-      importeTotalInput.value = roundTo(importeTotal, NUM_DECIMALES);
+      v.baseImponible = v.importeIva / (v.iva / 100);
+      v.importeTotal = v.baseImponible + v.importeIva;
       break;
     case "importeTotal":
-      baseImponible = importeTotal / (1 + iva / 100);
-      importeIva = (baseImponible * iva) / 100;
-      baseImponibleInput.value = roundTo(baseImponible, NUM_DECIMALES);
-      importeIvaInput.value = roundTo(importeIva, NUM_DECIMALES);
+      v.baseImponible = v.importeTotal / (1 + v.iva / 100);
+      v.importeIva = (v.baseImponible * v.iva) / 100;
       break;
     case "iva":
-      importeIva = (baseImponible * iva) / 100;
-      importeTotal = baseImponible + importeIva;
-      importeIvaInput.value = roundTo(importeIva, NUM_DECIMALES);
-      importeTotalInput.value = roundTo(importeTotal, NUM_DECIMALES);
+      v.importeIva = (v.baseImponible * v.iva) / 100;
+      v.importeTotal = v.baseImponible + v.importeIva;
       break;
   }
 
-  //   calculadoraInputs.forEach((inp) => {
-  //     if (e.target.id != inp.id) {
-  //         document.getElementById(inp.id).value=roundTo(Number(inp.value), NUM_DECIMALES);
-  //     }
-  //   });
+  calculadoraInputs.forEach((input) => {
+    if (id != input.id) {
+      input.value = roundTo(Number(v[input.id]), NUM_DECIMALES);
+    }
+  });
 };
 
 // aplica eventos a todos los inputs
