@@ -4,11 +4,11 @@ import { roundTo, isNumber } from "./functions.js";
 
 const calculadoraInputs = Array.from(document.querySelectorAll(".calculadora input"));
 const NUM_DECIMALES = 2;
-const esTeclaPermitida = (tecla) => /^([0-9.])$/.test(tecla) || tecla==='Backspace' || tecla==='Delete';
+const esTeclaPermitida = (tecla) => /^([0-9.])$/.test(tecla);
 const calcularImporte = (id) => {
 
   // objeto con los valores numéricos de los inputs
-  const v = calculadoraInputs.reduce((a, v) => ({ ...a, [v.id]: Number(v.value) }), {});
+  const v = calculadoraInputs.reduce((pv, cv) => ({ ...pv, [cv.id]: Number(cv.value) }), {});
 
   // dependiendo del input que se está modificando realiza los cálculos en el resto de input
   switch (id) {
