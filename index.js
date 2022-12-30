@@ -54,6 +54,7 @@ const calcularImporte = (id) => {
 calculadoraInputs.forEach((input) => {
 
   // Si se PRESIONA UNA TECLA sólo deja las permitidas (el '.' sólo una vez). Si se pulsa ',' lo transforma a '.'
+  // TODO: keypress está en proceso de quedarse obsoleto. Debería cambiarse por bedoreinput o keydown
   input.addEventListener("keypress", (e) => {
     if (e.key == "," && input.value.indexOf(".") == -1) e.target.value += ".";
     if (
