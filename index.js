@@ -1,46 +1,65 @@
 import { roundTo, isNumber } from "./functions.js";
 
-// declara constantes globales
 
-const calculadoraInputs = Array.from(document.querySelectorAll(".calculadora input"));
+// define constantes
+// ---------------------------------
+
+const inputId={
+  baseImponible:"baseImponible",
+  iva:"iva",
+  importeIva:"importeIva",
+  importeTotal:"importeTotal"
+};
+const inputs = Object.values(inputId).map((e) => document.getElementById(e));
 const NUM_DECIMALES = 2;
+
+
+// define funciones
+// ---------------------------------
+
+
 const esTeclaPermitida = (tecla) => /^([0-9.])$/.test(tecla);
-const calcularImporte = (id) => {
+
+const calculaImportes = (id) => {
 
   // objeto con los valores numéricos de los inputs
-  const v = calculadoraInputs.reduce((pv, cv) => ({ ...pv, [cv.id]: Number(cv.value) }), {});
+  const val = inputs.reduce((acc, item) => ({ ...acc, [item.id]: Number(item.value) }), {});
 
   // dependiendo del input que se está modificando realiza los cálculos en el resto de input
   switch (id) {
-    case "baseImponible":
-      v.importeIva = (v.baseImponible * v.iva) / 100;
-      v.importeTotal = v.baseImponible + v.importeIva;
+    case inputId.baseImponible:
+      val.importeIva = (val.baseImponible * val.iva) / 100;
+      val.importeTotal = val.baseImponible + val.importeIva;
       break;
-    case "importeIva":
-      v.baseImponible = v.importeIva / (v.iva / 100);
-      v.importeTotal = v.baseImponible + v.importeIva;
+    case inputId.iva:
+      val.importeIva = (val.baseImponible * val.iva) / 100;
+      val.importeTotal = val.baseImponible + val.importeIva;
       break;
-    case "importeTotal":
-      v.baseImponible = v.importeTotal / (1 + v.iva / 100);
-      v.importeIva = (v.baseImponible * v.iva) / 100;
+    case inputId.importeIva:
+      val.baseImponible = val.importeIva / (val.iva / 100);
+      val.importeTotal = val.baseImponible + val.importeIva;
       break;
-    case "iva":
-      v.importeIva = (v.baseImponible * v.iva) / 100;
-      v.importeTotal = v.baseImponible + v.importeIva;
+    case inputId.importeTotal:
+      val.baseImponible = val.importeTotal / (1 + val.iva / 100);
+      val.importeIva = (val.baseImponible * val.iva) / 100;
       break;
   }
 
   // copia los valores calculados en el resto de inputs
-  calculadoraInputs.forEach((input) => {
+  inputs.forEach((input) => {
     if (id != input.id) {
-      input.value = roundTo(Number(v[input.id]), NUM_DECIMALES);
+      input.value = roundTo(Number(val[input.id]), NUM_DECIMALES);
     }
   });
+
 };
 
-// aplica eventos a todos los inputs
 
-calculadoraInputs.forEach((input) => {
+
+// aplica eventos a todos los inputs
+// ---------------------------------
+
+inputs.forEach((input) => {
 
   // Si se PRESIONA UNA TECLA sólo deja las permitidas (el '.' sólo una vez). Si se pulsa ',' lo transforma a '.'
   // TODO: keypress está en proceso de quedarse obsoleto. Debería cambiarse por bedoreinput o keydown
@@ -56,16 +75,14 @@ calculadoraInputs.forEach((input) => {
   // Si se SUELTA UNA TECLA (que no sea tabulación), ejecuta calcular importe
   input.addEventListener("keyup", (e) => {
     if (input.value == '.') e.target.value = '0.';
-    if (e.key !== "Tab") {
-      calcularImporte(e.target.id);
-    }
+    if (e.key !== "Tab") calculaImportes(e.target.id);
   });
 
   // Si se PEGA un texto (que sea numérico), ejecuta calcula el importe
   input.addEventListener("paste", (e) => {
     let text = e.clipboardData.getData("text");
     if (!isNumber(text)) e.preventDefault();
-    calcularImporte(e.target.id);
+    calculaImportes(e.target.id);
   });
 
   // Si RECIBE EL FOCO, selecciona todo el texto
