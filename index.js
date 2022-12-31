@@ -85,8 +85,8 @@ inputs.forEach((input) => {
     calculaImportes(e.target.id);
   });
 
-  // Si RECIBE EL FOCO, selecciona todo el texto
-  input.addEventListener("focus", (e) => {
+  // Si se hace CLICK, selecciona todo el texto
+  input.addEventListener("click", (e) => {
     e.target.select();
   });
 
