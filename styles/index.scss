@@ -15,7 +15,7 @@ body {
     margin-right: auto;
     width: 80%;
     max-width: 1200px;
-    height:100vh;
+    height: 100vh;
 }
 
 h1 {
@@ -28,43 +28,42 @@ main {
     flex-flow: column nowrap;
     align-items: center;
     justify-content: center;
+}
 
-    form {
-        padding: 2rem;
-        width: fit-content;
-        border: 1px solid #ccc;
-        border-radius: 1rem;
+.calc {
+    padding: 2rem;
+    width: fit-content;
+    border: 1px solid #ccc;
+    border-radius: 1rem;
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 1rem;
+
+    &__block {
+
         display: flex;
-        flex-flow: column nowrap;
+        flex-flow: row nowrap;
         gap: 1rem;
+        justify-content: flex-end;
 
+        &__label {
+            align-self: center;
+        }
 
-        div {
+        &__input {
+            border: 1px solid #ccc;
+            padding: .5rem;
+            border-radius: .5rem;
+            width: 7rem;
 
-            display: flex;
-            flex-flow: row nowrap;
-            gap: 1rem;
-            justify-content: flex-end;
+            &:focus {
+                background-color: #eee;
 
-            label {
-                align-self: center;
-            }
-
-            input {
-                border: 1px solid #ccc;
-                padding: .5rem;
-                border-radius: .5rem;
-                width: 7rem;
-
-                &:focus{
-                    background-color: #eee;
-
-                    &::selection{
-                        background-color: #555;
-                        color:#fff;
-                    }
-                    
+                &::selection {
+                    background-color: #555;
+                    color: #fff;
                 }
+
             }
         }
     }
