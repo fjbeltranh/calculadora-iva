@@ -38,7 +38,8 @@ main {
     display: flex;
     flex-flow: column nowrap;
     gap: 1rem;
-
+    background: linear-gradient(to right bottom,rgba(245, 245, 245), rgb(255, 255, 255) 75%);
+    box-shadow:.1rem .1rem #ccc;
     &__block {
 
         display: flex;
@@ -51,6 +52,7 @@ main {
         }
 
         &__input {
+            background-color: #fff;
             border: 1px solid #ccc;
             padding: .5rem;
             border-radius: .5rem;
