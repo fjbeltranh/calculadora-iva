@@ -18,16 +18,18 @@ body {
     height: 100vh;
 }
 
-h1 {
-    font-size: 2rem;
-    margin: 1rem 0 2rem 0;
-}
 
-main {
+.main {
     display: flex;
     flex-flow: column nowrap;
     align-items: center;
     justify-content: center;
+
+
+    &__title {
+        font-size: 2rem;
+        margin: 1rem 0 2rem 0;
+    }
 }
 
 .calc {
@@ -38,35 +40,37 @@ main {
     display: flex;
     flex-flow: column nowrap;
     gap: 1rem;
-    background: linear-gradient(to right bottom,rgba(245, 245, 245), rgb(255, 255, 255) 75%);
-    box-shadow:.1rem .1rem #ccc;
-    &__block {
+    background: linear-gradient(to right bottom, rgba(245, 245, 245), rgb(255, 255, 255) 75%);
+    box-shadow: .1rem .1rem #ccc;
 
+    &__block {
         display: flex;
         flex-flow: row nowrap;
         gap: 1rem;
         justify-content: flex-end;
-
-        &__label {
-            align-self: center;
-        }
-
-        &__input {
-            background-color: #fff;
-            border: 1px solid #ccc;
-            padding: .5rem;
-            border-radius: .5rem;
-            width: 7rem;
-
-            &:focus {
-                background-color: #eee;
-
-                &::selection {
-                    background-color: #555;
-                    color: #fff;
-                }
-
-            }
-        }
     }
+
+    &__label {
+        align-self: center;
+    }
+
+    &__input {
+        background-color: #fff;
+        border: 1px solid #ccc;
+        padding: .5rem;
+        border-radius: .5rem;
+        width: 7rem;
+
+        &:focus {
+            background-color: #eee;
+
+            &::selection {
+                background-color: #555;
+                color: #fff;
+            }
+
+        }
+
+    }
+
 }
