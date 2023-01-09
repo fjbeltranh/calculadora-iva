@@ -1,0 +1,22 @@
+{
+  "name": "calculadora-iva",
+  "version": "1.0.0",
+  "description": "Formulario que, dado el porcentaje de IVA y Base Imponible, Importe IVA o Importe Total, puede calcular en tiempo real el resto de valores anteriores.",
+  "main": "./dist/index.html",
+  "scripts": {
+    "sass": "sass --watch --no-source-map src/scss/index.scss:dist/css/index.css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fjbeltranh/calculadora-iva.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fjbeltranh/calculadora-iva/issues"
+  },
+  "homepage": "https://github.com/fjbeltranh/calculadora-iva#readme",
+  "dependencies": {
+    "sass": "^1.57.1"
+  }
+}
