@@ -28,20 +28,20 @@ const calculaImportes = (id) => {
   // dependiendo del input que se está modificando realiza los cálculos en el resto de input
   switch (id) {
     case inputId.baseImponible:
-      val.importeIva = (val.baseImponible * val.iva) / 100;
-      val.importeTotal = val.baseImponible + val.importeIva;
+      val[inputId.importeIva] = (val[inputId.baseImponible] * val[inputId.iva]) / 100;
+      val[inputId.importeTotal] = val[inputId.baseImponible] + val[inputId.importeIva];
       break;
     case inputId.iva:
-      val.importeIva = (val.baseImponible * val.iva) / 100;
-      val.importeTotal = val.baseImponible + val.importeIva;
+      val[inputId.importeIva] = (val[inputId.baseImponible] * val[inputId.iva]) / 100;
+      val[inputId.importeTotal] = val[inputId.baseImponible] + val[inputId.importeIva];
       break;
     case inputId.importeIva:
-      val.baseImponible = val.importeIva / (val.iva / 100);
-      val.importeTotal = val.baseImponible + val.importeIva;
+      val[inputId.baseImponible] = val[inputId.importeIva] / (val[inputId.iva] / 100);
+      val[inputId.importeTotal] = val[inputId.baseImponible] + val[inputId.importeIva];
       break;
     case inputId.importeTotal:
-      val.baseImponible = val.importeTotal / (1 + val.iva / 100);
-      val.importeIva = (val.baseImponible * val.iva) / 100;
+      val[inputId.baseImponible] = val[inputId.importeTotal] / (1 + val[inputId.iva] / 100);
+      val[inputId.importeIva] = (val[inputId.baseImponible] * val[inputId.iva]) / 100;
       break;
   }
 
